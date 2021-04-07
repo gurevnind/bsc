@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Animal relationships</title>
+
+    <link rel="icon" href="/static/favicon.png" type="image/png">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav" style="float: left;">
+            <a class="blog-nav-item active" href="/">Home</a>
+            <a class="blog-nav-item" href="#">Animals</a>
+            <a class="blog-nav-item" href="#">About</a>
+        </nav>
+        <nav class="blog-nav navbar " style="float: right; margin: 0; min-height: 40px; border: none">
+            {% if user.is_authenticated %}
+                <a class="dropdown-toggle blog-nav-item" data-toggle="dropdown" href="/login"><span
+                        class="glyphicon glyphicon-user"></span> {{ user.username }}</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/password_change">Change password</a></li>
+                    <li><a href="/email_change">Change e-mail/username</a></li>
+                    <li><a class="blog-nav-item" href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log
+                        Out</a></li>
+                </ul>
+
+            {% else %}
+                <a class="blog-nav-item" href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                <a class="blog-nav-item" href="/login"><span class="glyphicon glyphicon-log-in"></span> Log In</a>
+            {% endif %}
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="blog-header">
+        <h1 class="blog-title">Animal relationships</h1>
+        <p class="lead blog-description">School X</p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            <div class="sidebar-module sidebar-module-inset">
+                <h4>About</h4>
+                <p>Bulletin board for finding animals for mating</p>
+            </div>
+            
+            <div class="sidebar-module">
+                <h4>Contacts</h4>
+                <ol class="list-unstyled">
+                    <li><a href="donstux.com">donstux</a></li>
+                </ol>
+            </div>
+        </div><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
+
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>

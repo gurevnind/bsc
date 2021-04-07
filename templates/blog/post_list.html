@@ -1,0 +1,142 @@
+{% load static %}
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Animal relationships</title>
+
+    <link rel="icon" href="/static/favicon.png" type="image/png">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav" style="float: left;">
+            <a class="blog-nav-item active" href="/">Home</a>
+            <a class="blog-nav-item" href="#">Animals</a>
+            <a class="blog-nav-item" href="#">About</a>
+        </nav>
+
+        <nav class="blog-nav navbar " style="float: right; margin: 0; min-height: 40px; border: none">
+            {% if user.is_authenticated %}
+                <a class="dropdown-toggle blog-nav-item" data-toggle="dropdown" href="/login"><span
+                        class="glyphicon glyphicon-user"></span> {{ user.username }}</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/password_change">Change password</a></li>
+                    <li><a href="/email_change">Change e-mail/username</a></li>
+                    <li><a class="blog-nav-item" href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log
+                        Out</a></li>
+                </ul>
+
+            {% else %}
+                <a class="blog-nav-item" href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                <a class="blog-nav-item" href="/login"><span class="glyphicon glyphicon-log-in"></span> Log In</a>
+            {% endif %}
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="blog-header">
+        <h1 class="blog-title">Animal relationships</h1>
+        <p class="lead blog-description">School X</p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-8 blog-main">
+            {% block content %}
+                {% if form %}
+                    <button class="btn btn-primary" onclick="toggle_visibility('post-form')">Create new post</button>
+                    <form enctype='multipart/form-data' id="comment_area" action="{% url 'add_post' %}" method="post">
+                        <div id="post-form" style="display: none; margin-top: 10px">
+                            {% csrf_token %}
+
+
+                            {% bootstrap_form form %}
+                            <button type="submit"
+                                    class="btn btn-primary">{% bootstrap_icon "comment" %}&nbsp;&nbsp;Post
+                            </button>
+                        </div>
+                    </form>
+                {% else %}
+                {% endif %}
+
+                {% for post in posts %}
+                    <div class="blog-post">
+                        <hr>
+
+                        {% if post.rating == 0 %}
+                            <p style="color: grey; float: right">0</p>
+                        {% elif post.rating > 0 %}
+                            <p style="color: green; float: right">+{{ post.rating }}</p>
+                        {% else %}
+                            <p style="color: red;float: right">{{ post.rating }}</p>
+                        {% endif %}
+                        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                        <p class="blog-post-meta">{{ post.published_date }}<a href="#">{{ post.author }}</a></p>
+                        <p>{{ post.text|truncatewords:50 }}</p>
+
+                        <hr>
+
+                    </div>
+                {% empty %}
+                    <p style="margin-top: 15px"> There isn't any posts </p>
+                {% endfor %}
+
+            {% endblock %}
+
+
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            <div class="sidebar-module sidebar-module-inset">
+                <h4>About</h4>
+                <p>Bulletin board for finding animals for mating</p>
+            </div>
+            
+            <div class="sidebar-module">
+                <h4>Contacts</h4>
+                <ol class="list-unstyled">
+                    <li><a href="donstux.com">donstux</a></li>
+                </ol>
+            </div>
+        </div><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
+
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function toggle_visibility(classname) {
+        let e = document.getElementById('post-form');
+        if (e.style.display == 'block')
+            e.style.display = 'none';
+        else
+            e.style.display = 'block';
+    }
+</script>
+</body>
+</html>
