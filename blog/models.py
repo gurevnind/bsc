@@ -67,6 +67,7 @@ class Post(models.Model):
     title = models.CharField(max_length=35)
     text = models.TextField()
     rating = models.IntegerField(default=0)
+    postType = models.IntegerField(default=1)
     picture = models.ImageField(upload_to=content_file_name, blank=True, validators=[validate_file])
 
     published_date = models.DateTimeField(

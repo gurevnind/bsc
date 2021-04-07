@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Animal relationships</title>
+    <title>Animal's home</title>
 
     <link rel="icon" href="/static/favicon.png" type="image/png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -22,8 +22,8 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav" style="float: left">
-            <a class="blog-nav-item active" href="/">Home</a>
-            <a class="blog-nav-item" href="#">Animals</a>
+            <a class="blog-nav-item" href="/">Forum</a>
+            <a class="blog-nav-item" href="/rel">Relationships</a>
             <a class="blog-nav-item" href="#">About</a>
         </nav>
         <nav class="blog-nav navbar " style="float: right; margin: 0; min-height: 40px; border: none">
@@ -48,7 +48,7 @@
 <div class="container">
 
     <div class="blog-header">
-        <h1 class="blog-title">Animal relationships</h1>
+        <h1 class="blog-title">Animal's home</h1>
         <p class="lead blog-description">School X</p>
     </div>
 
@@ -66,10 +66,13 @@
                     {% endif %}
                     <p>{{ post.published_date }}</p>
                     <h2 style="font-weight: 800;">{{ post.title }}</h2>
-                    <p style="text-align: justify">&#09;{{ post.text }}</p>
-                    {% if post.picture %}
+					<br>
+					{% if post.picture %}
                         <img src="{{ post.picture.url }}" class="img-responsive" alt="img">
                     {% endif %}
+					<br>
+                    <p style="text-align: justify">&#09;{{ post.text }}</p>
+                    
 
                     {% if like == 0 %}
                         <a style="float: right; " href="/dislike/{{ post.id }}"><span
@@ -162,7 +165,7 @@
                         <div class="sidebar-module">
                             <h4>Contacts</h4>
                             <ol class="list-unstyled">
-                                <li><a href="donstux.com">donstux</a></li>
+                                <li><a href="donstux.com">Donstux</a></li>
                             </ol>
                         </div>
                     </div><!-- /.blog-sidebar -->

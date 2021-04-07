@@ -61,7 +61,7 @@ class PostsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostsView, self).get_context_data(**kwargs)
-        context['posts'] = Post.objects.all().order_by('-rating')
+        context['posts'] = Post.objects.all().filter(postType=1).order_by('-rating')
 
         context['posts'] = sorted(list(context['posts']),
                                   key=lambda x: -(
@@ -70,8 +70,26 @@ class PostsView(ListView):
         user = auth.get_user(self.request)
         if user.is_authenticated:
             context['form'] = NewPost
+        print(context)
         return context
 
+class RelView(ListView):
+    template_name = 'rel/post_list.html'
+    model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super(RelView, self).get_context_data(**kwargs)
+        context['posts'] = Post.objects.all().filter(postType=0).order_by('-rating')
+
+        context['posts'] = sorted(list(context['posts']),
+                                  key=lambda x: -(
+                                          x.rating * (1 / (timezone.now() - x.published_date).total_seconds())))
+
+        user = auth.get_user(self.request)
+        if user.is_authenticated:
+            context['form'] = NewPost
+        print(context)
+        return context
 
 class ArticleDetailView(DetailView):
     model = Post
@@ -126,6 +144,7 @@ def add_post(request):
         post = Post()
         post.author = auth.get_user(request)
         post.title = form.cleaned_data['title']
+        post.postType = form.cleaned_data['postType']
         post.text = form.cleaned_data['text']
         post.published_date = timezone.now()
         post.picture = form.cleaned_data['picture']

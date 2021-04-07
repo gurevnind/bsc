@@ -6,6 +6,7 @@ import blog.views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [url(r'^$', PostsView.as_view(), name='list'),
+               url(r'^rel$', RelView.as_view(), name='rel'),
                url(r'^signup/$', signup, name='signup'),
                url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
                url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),

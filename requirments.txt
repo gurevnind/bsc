@@ -1,4 +1,0 @@
-Django==2.1.3
-django-bootstrap3==11.0.0
-djangorestframework==3.9.0
-Pillow==8.2.0

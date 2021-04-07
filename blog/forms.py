@@ -30,7 +30,7 @@ class CommentForm(forms.ModelForm):
 class NewPost(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'text', 'picture')
+        fields = ('title', 'postType', 'text', 'picture')
 
 
 class UpdateProfile(forms.ModelForm):
